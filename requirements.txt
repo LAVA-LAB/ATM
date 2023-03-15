@@ -1,0 +1,6 @@
+numpy
+gym
+scipy
+matplotlib
+future
+h5py

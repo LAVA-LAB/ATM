@@ -1,0 +1,70 @@
+
+Data collected from running in Measurement Regret Environment , using the following algorithms:
+
+BAM_QMDP:
+nmbr_eps                    = 200
+nmbr_runs                   = 5
+measure_cost                = -1
+
+avererage reward            = 0.8094933526570035
+average nmbr steps          = 2.13057449275362
+average nmbr measurements   = 0.48806164251207673
+average non-costed reward       = 0.3214317101449268
+
+In last 1/10th of episodes:
+avererage reward            = 0.804560386473429
+average nmbr steps          = 2.0705700483091767
+average nmbr measurements   = 0.23528502415458927
+average non-costed reward       = 0.31649874396135225
+
+
+BAM_QMDP+:
+nmbr_eps                    = 200
+nmbr_runs                   = 5
+measure_cost                = -1
+
+avererage reward            = 0.8004719806763272
+average nmbr steps          = 2.1370075362318808
+average nmbr measurements   = 0.4811217391304342
+average non-costed reward       = 0.319350241545893
+
+In last 1/10th of episodes:
+avererage reward            = 0.7661188405797094
+average nmbr steps          = 2.0912657004830892
+average nmbr measurements   = 0.24563285024154552
+average non-costed reward       = 0.28499710144927515
+
+
+ACNO_OTP:
+nmbr_eps                    = 200
+nmbr_runs                   = 3
+measure_cost                = -1
+
+avererage reward            = 0.7041590982286624
+average nmbr steps          = 2.1222640901771306
+average nmbr measurements   = 1.1222640901771321
+average non-costed reward       = -0.41810499194846973
+
+In last 1/10th of episodes:
+avererage reward            = 0.8772721417069235
+average nmbr steps          = 1.9999999999999978
+average nmbr measurements   = 0.0
+average non-costed reward       = -0.24499194847020866
+
+
+AMRL:
+nmbr_eps                    = 200
+nmbr_runs                   = 5
+measure_cost                = -1
+
+avererage reward            = 0.7567868405797088
+average nmbr steps          = 3.6975885990338098
+average nmbr measurements   = 0.20683111111111088
+average non-costed reward       = 0.5499557294685979
+
+In last 1/10th of episodes:
+avererage reward            = 0.7383943961352648
+average nmbr steps          = 4.786523671497579
+average nmbr measurements   = 0.1911478260869563
+average non-costed reward       = 0.531563285024154
+

@@ -1,0 +1,62 @@
+
+Data collected from running in 4x4 Frozen Lake Environment (slippery) , using the following algorithms:
+
+BAM_QMDP:
+nmbr_eps                    = 1000
+nmbr_runs                   = 5
+measure_cost                = -1.0
+
+avererage reward            = -0.014070000000000001            (with std = 0.013885121533497646)
+average nmbr steps          = 6.6842            (with std = 2.6404223828774063)
+average nmbr measurements   = 0.9414            (with std = 1.8609583660039255)
+
+In last 1/10th of episodes:
+avererage reward            = 0.0202            (with std = 0.038170145401871344)
+average nmbr steps          = 6.912            (with std = 2.620888398997561)
+average nmbr measurements   = 0.076            (with std = 0.16918628786045278)
+
+
+BAM_QMDP+:
+nmbr_eps                    = 1000
+nmbr_runs                   = 5
+measure_cost                = -1.0
+
+avererage reward            = -0.0021833333333333366            (with std = 0.009882841471740586)
+average nmbr steps          = 5.647666666666667            (with std = 2.3177995071954682)
+average nmbr measurements   = 0.8836666666666667            (with std = 2.0298658685845337)
+
+In last 1/10th of episodes:
+avererage reward            = 0.035333333333333335            (with std = 0.013474255287605158)
+average nmbr steps          = 6.16            (with std = 2.3581913973778015)
+average nmbr measurements   = 0.09333333333333334            (with std = 0.31297852251481345)
+
+
+AMRL:
+nmbr_eps                    = 1000
+nmbr_runs                   = 5
+measure_cost                = 0.05
+
+avererage reward            = 0.00938            (with std = 0.012360161811238557)
+average nmbr steps          = 8.158            (with std = 6.705633154296468)
+average nmbr measurements   = 0.2284            (with std = 0.7056865026341371)
+
+In last 1/10th of episodes:
+avererage reward            = 0.032            (with std = 0.020396078054371138)
+average nmbr steps          = 9.34            (with std = 12.268088685691833)
+average nmbr measurements   = 0.0            (with std = 0.0)
+
+
+ACNO_OTP:
+nmbr_eps                    = 1000
+nmbr_runs                   = 5
+measure_cost                = 0.05
+
+avererage reward            = -0.2446            (with std = 0.007419501330952113)
+average nmbr steps          = 5.5724            (with std = 2.445575237035246)
+average nmbr measurements   = 5.296            (with std = 2.70488151311661)
+
+In last 1/10th of episodes:
+avererage reward            = 0.04            (with std = 0.012649110640673518)
+average nmbr steps          = 5.528            (with std = 1.6765488361512169)
+average nmbr measurements   = 0.0            (with std = 0.0)
+

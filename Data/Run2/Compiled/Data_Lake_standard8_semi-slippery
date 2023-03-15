@@ -1,0 +1,47 @@
+
+Data collected from running in 8x8 Frozen Lake Environment (semi-slippery) , using the following algorithms:
+
+BAM_QMDP:
+nmbr_eps                    = 2000
+nmbr_runs                   = 5
+measure_cost                = -1.0
+
+avererage reward            = 0.31926078357487864            (with std = 0.293339614855063)
+average nmbr steps          = 7.573092251207716            (with std = 3.0356944867568627)
+average nmbr measurements   = 2.101798821256035            (with std = 3.480237669342839)
+
+In last 1/10th of episodes:
+avererage reward            = 0.41993847342995105            (with std = 0.0335514931521185)
+average nmbr steps          = 6.73304811594202            (with std = 0.26674674643615065)
+average nmbr measurements   = 0.9239281159420277            (with std = 0.08088120882979116)
+
+
+BAM_QMDP+:
+nmbr_eps                    = 2000
+nmbr_runs                   = 5
+measure_cost                = -1.0
+
+avererage reward            = 0.5630517961352648            (with std = 0.3093409806663694)
+average nmbr steps          = 13.440052579710121            (with std = 1.4455230585790289)
+average nmbr measurements   = 6.4595120966183455            (with std = 2.160613048945575)
+
+In last 1/10th of episodes:
+avererage reward            = 0.6226365603864725            (with std = 0.020686591190486558)
+average nmbr steps          = 12.96702840579708            (with std = 0.31063438530854665)
+average nmbr measurements   = 5.710747053140086            (with std = 0.231409207072074)
+
+
+AMRL:
+nmbr_eps                    = 2000
+nmbr_runs                   = 5
+measure_cost                = -1.0
+
+avererage reward            = 0.5640285236714965            (with std = 0.19726797576562105)
+average nmbr steps          = 17.67939617391301            (with std = 4.63905328830884)
+average nmbr measurements   = 1.1580417004830899            (with std = 1.238934152628865)
+
+In last 1/10th of episodes:
+avererage reward            = 0.5397787439613517            (with std = 0.04267299653961422)
+average nmbr steps          = 20.223301256038614            (with std = 5.1939831760164905)
+average nmbr measurements   = 1.0583845410628003            (with std = 0.33375462648339943)
+

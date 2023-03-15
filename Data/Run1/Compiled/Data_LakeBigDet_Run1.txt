@@ -1,0 +1,53 @@
+
+Data collected from running in Big Deterministic Lake Environment , using the following algorithms:
+
+AMRL:
+nmbr_eps                    = 5000
+nmbr_runs                   = 25
+measure_cost                = -1
+
+avererage reward            = 0.021438654943062664
+average nmbr steps          = 15.597590618854795
+average nmbr measurements   = 0.4519994646445715
+average non-costed reward       = -0.43056080970150884
+
+In last 1/10th of episodes:
+avererage reward            = 0.017750682534768122
+average nmbr steps          = 18.58868616847313
+average nmbr measurements   = 0.5078605582779031
+average non-costed reward       = -0.4342487821098034
+
+
+AMRLV2:
+nmbr_eps                    = 5000
+nmbr_runs                   = 25
+measure_cost                = -1
+
+avererage reward            = 0.8358405280961728
+average nmbr steps          = 16.976341324033843
+average nmbr measurements   = 0.37349023949726773
+average non-costed reward       = 0.4623502885989051
+
+In last 1/10th of episodes:
+avererage reward            = 0.9999999999994565
+average nmbr steps          = 14.159999999992325
+average nmbr measurements   = 0.0
+average non-costed reward       = 0.6265097605021888
+
+
+AMRLV3:
+nmbr_eps                    = 5000
+nmbr_runs                   = 25
+measure_cost                = -1
+
+avererage reward            = 0.9791064102668737
+average nmbr steps          = 14.201648763130128
+average nmbr measurements   = 0.3732087731014436
+average non-costed reward       = 0.6058976371654301
+
+In last 1/10th of episodes:
+avererage reward            = 0.9999999999994565
+average nmbr steps          = 13.999999999992411
+average nmbr measurements   = 0.0
+average non-costed reward       = 0.6267912268980129
+

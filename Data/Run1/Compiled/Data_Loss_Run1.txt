@@ -1,0 +1,53 @@
+
+Data collected from running in Regret Environment , using the following algorithms:
+
+AMRL:
+nmbr_eps                    = 5000
+nmbr_runs                   = 10
+measure_cost                = -1
+
+avererage reward            = 0.4058781524706485
+average nmbr steps          = 19.384479356044093
+average nmbr measurements   = 0.5141900465934339
+average non-costed reward       = -0.10831189412278541
+
+In last 1/10th of episodes:
+avererage reward            = 0.3596751437086619
+average nmbr steps          = 20.754187547714118
+average nmbr measurements   = 0.548058407388415
+average non-costed reward       = -0.15451490288477204
+
+
+AMRLV2:
+nmbr_eps                    = 5000
+nmbr_runs                   = 25
+measure_cost                = -1
+
+avererage reward            = 0.8457175684414339
+average nmbr steps          = 2.3169254810694824
+average nmbr measurements   = 0.800967434730857
+average non-costed reward       = 0.0447501337105769
+
+In last 1/10th of episodes:
+avererage reward            = 0.8468441837060673
+average nmbr steps          = 2.3389847037448868
+average nmbr measurements   = 0.8384701703514414
+average non-costed reward       = 0.045876748975210324
+
+
+AMRLV3:
+nmbr_eps                    = 5000
+nmbr_runs                   = 10
+measure_cost                = -1
+
+avererage reward            = 0.8157688343605921
+average nmbr steps          = 2.1911087592648606
+average nmbr measurements   = 0.24485110918497702
+average non-costed reward       = 0.5709177251756151
+
+In last 1/10th of episodes:
+avererage reward            = 0.8234304377829607
+average nmbr steps          = 2.2106321476012907
+average nmbr measurements   = 0.2427923613953621
+average non-costed reward       = 0.5785793285979837
+

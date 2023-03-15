@@ -1,0 +1,47 @@
+
+Data collected from running in 20x20 Frozen Lake Environment (semi-slippery) , using the following algorithms:
+
+BAM_QMDP:
+nmbr_eps                    = 7500
+nmbr_runs                   = 5
+measure_cost                = 0.05
+
+avererage reward            = -0.3170946666666667            (with std = 0.2900373292725534)
+average nmbr steps          = 32.951119999999996            (with std = 19.96791600073144)
+average nmbr measurements   = 6.39256            (with std = 5.807042446868572)
+
+In last 1/10th of episodes:
+avererage reward            = -0.06520000000000004            (with std = 0.11627966288220828)
+average nmbr steps          = 48.023999999999994            (with std = 31.56691027009137)
+average nmbr measurements   = 1.544            (with std = 2.6752315787609864)
+
+
+BAM_QMDP+:
+nmbr_eps                    = 7500
+nmbr_runs                   = 5
+measure_cost                = 0.05
+
+avererage reward            = -0.21727333333333335            (with std = 0.5069425989421507)
+average nmbr steps          = 30.7326            (with std = 27.83658020016108)
+average nmbr measurements   = 7.780133333333334            (with std = 8.539140783214407)
+
+In last 1/10th of episodes:
+avererage reward            = 0.02            (with std = 0.18452642087245935)
+average nmbr steps          = 43.43            (with std = 39.22996431300951)
+average nmbr measurements   = 2.2            (with std = 2.477902338672773)
+
+
+AMRL:
+nmbr_eps                    = 1000
+nmbr_runs                   = 5
+measure_cost                = 0.05
+
+avererage reward            = -0.10294000000000002            (with std = 0.0955141685824674)
+average nmbr steps          = 17.9128            (with std = 7.965671105437382)
+average nmbr measurements   = 2.0588            (with std = 1.9102833716493477)
+
+In last 1/10th of episodes:
+avererage reward            = -0.052600000000000015            (with std = 0.08963950022172147)
+average nmbr steps          = 17.26            (with std = 10.111636860568126)
+average nmbr measurements   = 1.052            (with std = 1.7927900044344292)
+

@@ -1,0 +1,53 @@
+
+Data collected from running in {}, using the following algorithms:
+
+AMRL:
+nmbr_eps                    = 5000
+nmbr_runs                   = 10
+measure_cost                = -1
+
+avererage reward            = 0.008387350608102718
+average nmbr steps          = 25.659817598617984
+average nmbr measurements   = 0.7417901812375567
+average non-costed reward       = -0.733402830629454
+
+In last 1/10th of episodes:
+avererage reward            = 0.012602357318510244
+average nmbr steps          = 21.594824409973562
+average nmbr measurements   = 0.6150617260412028
+average non-costed reward       = -0.7291878239190465
+
+
+AMRLV2:
+nmbr_eps                    = 5000
+nmbr_runs                   = 25
+measure_cost                = -1
+
+avererage reward            = -0.003991790831640831
+average nmbr steps          = 26.707924496109307
+average nmbr measurements   = 1.6243380977056332
+average non-costed reward       = -1.6283298885372741
+
+In last 1/10th of episodes:
+avererage reward            = 0.02043483729593361
+average nmbr steps          = 25.586258988602307
+average nmbr measurements   = 0.3453754998418121
+average non-costed reward       = -1.6039032604096997
+
+
+AMRLV3:
+nmbr_eps                    = 5000
+nmbr_runs                   = 10
+measure_cost                = -1
+
+avererage reward            = -0.016916237605966042
+average nmbr steps          = 35.582429996432126
+average nmbr measurements   = 4.974981442961815
+average non-costed reward       = -4.9918976805677815
+
+In last 1/10th of episodes:
+avererage reward            = 0.006602659656315044
+average nmbr steps          = 33.88491723436987
+average nmbr measurements   = 2.7888318440683304
+average non-costed reward       = -4.9683787833055
+
