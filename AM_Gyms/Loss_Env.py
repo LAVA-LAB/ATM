@@ -39,21 +39,20 @@ class Measure_Loss_Env(gym.Env):
         if action:  # 'backwards': go back to the beginning
             next_state = 0
         else:
-            match self.state:
-                case 0:
-                    if np.random.rand() < self.p:   # s+
-                        next_state = 1
-                    else:
-                        next_state = 2
-                case 1:
-                    next_state = 3
-                    done = True
-                    reward = self.r
-                case 2:
-                    next_state = 3
-                    done = True
-                case 3:
-                    raise Exception("Invalid state: agent tried moving when done!")
+            if self.state == 0:
+                if np.random.rand() < self.p:   # s+
+                    next_state = 1
+                else:
+                    next_state = 2
+            if self.state == 1:
+                next_state = 3
+                done = True
+                reward = self.r
+            elif self.state == 2:
+                next_state = 3
+                done = True
+            elif self.state == 3:
+                raise Exception("Invalid state: agent tried moving when done!")
         self.state = next_state
         return self.state, reward, done, {}
 

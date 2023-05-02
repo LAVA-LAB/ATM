@@ -104,12 +104,13 @@ class AMRL_Agent:
 
             # Update reward, Q-table and s_next
             if measure:
-                (obs, reward, done) = self.env.step_and_measure(action)
+                (reward, done) = self.env.step(action)
+                (obs, cost) = self.env.measure()
                 self.update_TransTable(s_current,obs,action)
                 self.measurements_taken += 1
                 s_next = obs
             else:
-                (reward, done) = self.env.step_no_measure(action)
+                (reward, done) = self.env.step(action)
                 s_next = self.guess_current_State(s_current, action)
             
             self.update_QTable(s_current,action,measure,s_next, reward, done)

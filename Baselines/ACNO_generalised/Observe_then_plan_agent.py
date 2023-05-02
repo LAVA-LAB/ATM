@@ -40,7 +40,7 @@ class ACNO_Agent_OTP:
         rewards, steps, measurements = np.zeros(nmbr_episodes), np.zeros(nmbr_episodes), np.zeros(nmbr_episodes)
         
         # Run exploration phase
-        self.explore_episodes = nmbr_episodes-50
+        self.explore_episodes = nmbr_episodes-1
         exp_eps = self.explore_episodes #readibilty re-define
         rewards[:exp_eps], steps[:exp_eps] = self.model.sample_model(self.explore_episodes)
         measurements[:exp_eps] = steps[:exp_eps]

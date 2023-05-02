@@ -68,6 +68,9 @@ class AM_ENV():
         
     def getname(self):
         return self.env.getname()
+    
+    def horizon(self):
+        return None
 
 
     #######################################################
@@ -104,11 +107,10 @@ class AM_Visualiser(): # Assuming a grid!
         return 
 
     def __action_to_symbol__(self, action):
-        match action:
-            case 0: return '<'
-            case 1: return '.'
-            case 2: return '>'
-            case 3: return '^'
+        if action == 0  : return '<'
+        elif action == 1: return '.'
+        elif action == 2: return '>'
+        elif action == 3: return '^'
 
     def plot_choice_certainty(self):
 

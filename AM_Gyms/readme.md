@@ -13,4 +13,4 @@ Furthermore, it contains the following additional files:
 - AM_Env_wrapper        : a wrapper class to add measuring functionality to openAI gyms.
 - ModelLearner.py       : a class to learn the dynamics of an environment (i.e. transition function, rewards, done-states & Q-values) using method described by Delage and Mannor (2010).
 
-For the first three environments mentioned above, data can be found in the data folder. The others were only used for testing.
+For the first three environments mentioned above, data can be found in the data folder. The others were only used for testing, so no data has been saved.

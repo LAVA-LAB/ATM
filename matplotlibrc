@@ -1,6 +1,6 @@
 # figure.figsize         : 3.32, 2.49
 # figure.figsize         : 4.34, 2.49
-figure.figsize          : 6, 3
+figure.figsize          : 6,3
 figure.dpi             : 200
 figure.facecolor       : white
 figure.autolayout      : True
@@ -9,8 +9,8 @@ lines.linewidth        : 1.5
 lines.markersize       : 6
 #markers.fillstyle     : none
 #axes.facecolor        : white
-font.size              : 10
-axes.titlesize         : 10
+font.size              : 14
+axes.titlesize         : 17
 
 # spines
 axes.spines.left       : True   ## display axis spines
@@ -45,3 +45,7 @@ font.family            : "Times New Roman"
 text.usetex            : True
 # text.latex.preamble  : \usepackage{amsmath}\usepackage{libertine}
 text.latex.preamble    : \usepackage{times}
+
+# removing white border
+savefig.bbox: tight
+savefig.pad_inches:  0.01

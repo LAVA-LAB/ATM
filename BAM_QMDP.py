@@ -395,15 +395,14 @@ Unbiased QTable: {}
                 if thisAlpha >= self.NmbrOptimiticTries and self.optimism_type != "UCB":
                     self.QTable[s1,action] = totQ
                 else:
-                    match self.optimism_type:
-                        case "RMAX+":
-                            self.QTable[s1,action] = totQ + max(0,1-totQ) * ( (self.NmbrOptimiticTries - thisAlpha) / self.NmbrOptimiticTries)
-                        case "UCB":
-                            optTerm = np.sqrt(2 * np.log10(self.totalSteps+2) / (self.QCounter+1)) # How do we do this +2 cleanly?
-                            self.QTableUnbiased[s1,action] = totQ
-                            self.QTable = self.QTableUnbiased + ( self.UCB_Cp * optTerm )
-                        case "RMAX":
-                            self.QTable[s1,action] = 1
+                    if self.optimism_type == "RMAX+":
+                        self.QTable[s1,action] = totQ + max(0,1-totQ) * ( (self.NmbrOptimiticTries - thisAlpha) / self.NmbrOptimiticTries)
+                    elif self.optimism_type == "UCB":
+                        optTerm = np.sqrt(2 * np.log10(self.totalSteps+2) / (self.QCounter+1)) # How do we do this +2 cleanly?
+                        self.QTableUnbiased[s1,action] = totQ
+                        self.QTable = self.QTableUnbiased + ( self.UCB_Cp * optTerm )
+                    elif self.optimism_type == "RMAX":
+                        self.QTable[s1,action] = 1
     
     def train_offline(self):
         "Performs Dyna-style oflline training of Q-values using current transition function"

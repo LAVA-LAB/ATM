@@ -4,3 +4,4 @@ scipy
 matplotlib
 future
 h5py
+pytest
