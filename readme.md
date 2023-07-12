@@ -6,6 +6,7 @@ Repository containing code for ATM-Q (referred to here as BAM-QMDP), and gathere
 > Act-Then-Measure: Reinforcement Learning for Partially Observable Environments with Active Measuring  
 > In ICAPS, 2023.
 
+![teaser](https://github.com/lava-lab/ATM/blob/main/assets/teaser.gif?raw=true)
 
 ## Contents
 
