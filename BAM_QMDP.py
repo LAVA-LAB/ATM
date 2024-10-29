@@ -54,7 +54,7 @@ class BAM_QMDP:
         
         self.dynamicLR = False
         self.lr = 0.1                               # Learning rate, as used in standard Q updates. Currently unused, since we use a dynamic learning rate
-        self.df = 0.8                              # Discount Factor, as used in Q updates
+        self.df = 0.95                              # Discount Factor, as used in Q updates
         
         self.init_run_variables()
 
@@ -64,16 +64,13 @@ class BAM_QMDP:
         
         # Value Estimation Tables
         self.QTable             = np.ones ( (self.StateSize, self.ActionSize), dtype=np.longfloat )* self.optimisticPenalty    # Q-table as used by other functions, includes initial bias
-
-        self.QTableUnbiased     = np.zeros( (self.StateSize, self.ActionSize), dtype=np.longfloat )                             # Q-table based solely on experience (unbiased)
                                                                                          
         self.QTableRewards      = np.zeros( (self.StateSize, self.ActionSize) )                                                 # Record average immidiate reward for (s,a) (called \hat{R} in report)
         self.Qmax               = np.zeros( (self.StateSize), dtype=np.longfloat)                                               # Q-value of optimal action as given by Q (used for readability)
-        self.QMaxUnbiased       = np.zeros( (self.StateSize), dtype=np.longfloat)
         self.QCounter           = np.zeros( (self.StateSize, self.ActionSize ))
         
-        self.QTableUnbiased[self.doneState] = 0
         self.QTable[self.doneState]         = 0
+
         
         
         self.alpha              = np.ones ( (self.StateSize, self.ActionSize, self.StateSize) ) * self.initPrior                 # Alpha-values used for dirichlet-distributions.
@@ -196,9 +193,8 @@ class BAM_QMDP:
 Run complete: 
 Alpha table: {}
 QTable: {}
-Rewards Table: {}
-Unbiased QTable: {}            
-            """.format(self.alpha,  self.QTable, self.QTableRewards, self.QTableUnbiased))
+Rewards Table: {}           
+            """.format(self.alpha,  self.QTable, self.QTableRewards))
         if get_full_results:
             return(self.totalReward, epreward,epsteps,epms)
         return self.totalReward
@@ -224,7 +220,7 @@ Unbiased QTable: {}
         for s in S:
             p = S[s]
             QTable_max = np.max(self.QTable[s]) # expected return if we were in state s
-            Loss +=  p * max( 0.0, QTable_max - self.QTableUnbiased[s,action] )
+            Loss +=  p * max( 0.0, QTable_max - self.QTable[s,action] ) #TODO: change!
         return Loss
     
     def get_support(self, S, action):
@@ -330,14 +326,17 @@ Unbiased QTable: {}
                 self.alpha_sum[s1,action] += p1
             
             # Otherwise, update alpha normally when measuring
-            elif len(S2) == 1 and len(S1) == 1:
-                for s2 in S2:
-                    self.alpha[s1,action,s2] += p1
-                    self.alpha_sum[s1,action] += p1
+            # elif len(S2) == 1 and len(S1) == 1:
+            for s2 in S2:
+                self.alpha[s1,action,s2] += p1*S2[s2]
+                self.alpha_sum[s1,action] += p1*S2[s2]
             
             # If not measuring
-            else:
-                pass
+            # else:
+            #     for s2 in S2:
+            #         self.alpha[s1,action,s2] += p1*S2[s2]*0.1
+            #         self.alpha_sum[s1,action] += p1*S2[s2]*0.1
+            #     pass
                                      
     def update_Q_lastStep_only(self,S1, S2, action, reward, isDone = False, isReal = True):
         'Updates Q-table according to transition (S1, a, S2)'
@@ -348,28 +347,25 @@ Unbiased QTable: {}
             if p1 < 1:
                     p1 = p1 * self.Q_noMeasureRate
             thisQ = 0
-            thisQUnbiased = 0
             
             if not (s1 == self.doneState):
-                if not isDone:
-                    if len(S2) > 1 :
-                        dict_this_s = dict()
-                        dict_this_s[s1] = 1
-                        S2 = self.guess_next_state(dict_this_s, action)
-                    for s2 in S2:
-                        #Compute chance of transition:
-                        p2 = S2[s2]
-                        
-                        pt = p1*p2 
+                # if not isDone:
+                    # if len(S2) > 1 :
+                    #     dict_this_s = dict()
+                    #     dict_this_s[s1] = 1
+                    #     S2 = self.guess_next_state(dict_this_s, action)
+                for s2 in S2:
+                    #Compute chance of transition:
+                    p2 = S2[s2]
+                    
+                    pt = p1*p2 
 
-                        # Update Q-table according to transition
-                        if not isDone:
-                            if s1 != s2:
-                                thisQ += p2*np.max(self.QTable[s2])
-                                thisQUnbiased += p2*np.max(self.QTableUnbiased[s2])
-                            elif s1 == s2:
-                                thisQ += p2*self.selfLoopPenalty*np.max(self.QTable[s2]) # We dis-incentivize self-loops by applying a small penalty to them
-                                thisQUnbiased += p2*self.selfLoopPenalty*np.max(self.QTableUnbiased[s2])
+                    # Update Q-table according to transition
+                    if not isDone:
+                        if s1 != s2:
+                            thisQ += p2*np.max(self.QTable[s2])
+                        elif s1 == s2:
+                            thisQ += p2*self.selfLoopPenalty*np.max(self.QTable[s2]) # We dis-incentivize self-loops by applying a small penalty to them
                                 
 
                 # Update Q-unbiased
@@ -378,10 +374,9 @@ Unbiased QTable: {}
                     pass
                 else: 
                     thisLR = self.lr * p1
-                    totQUnbiased =  (1-thisLR) * self.QTableUnbiased[s1,action] + thisLR * (reward + self.df * thisQ)
-                    totQ = (1-thisLR) * self.QTableUnbiased[s1,action] + thisLR * (reward + self.df*thisQ) 
+                    # totQ = (1-thisLR) * self.QTableUnbiased[s1,action] + thisLR * (reward + self.df*thisQ)
+                    totQ = (1-thisLR) * self.QTable[s1,action] + thisLR * (reward + self.df*thisQ) 
 
-                self.QTableUnbiased[s1,action] =  totQUnbiased
                 
                 # Update QTries & R only if real action
                 if isReal and len(S2) == 1 and len(S1) == 1:
@@ -390,17 +385,19 @@ Unbiased QTable: {}
                     self.QTableRewards[s1,action] = (self.QTableRewards[s1,action]*prevCounter + p1 * reward) / (self.QCounter[s1,action])
                 
                 # Implement bias
-                thisAlpha = np.sum(self.alpha[s1,action]) + p1
+                thisAlpha = self.NmbrOptimiticTries
+                if p1 == 1:
+                    thisAlpha = np.sum(self.alpha[s1,action]) + p1
 
                 if thisAlpha >= self.NmbrOptimiticTries and self.optimism_type != "UCB":
                     self.QTable[s1,action] = totQ
                 else:
                     if self.optimism_type == "RMAX+":
-                        self.QTable[s1,action] = totQ + max(0,1-totQ) * ( (self.NmbrOptimiticTries - thisAlpha) / self.NmbrOptimiticTries)
-                    elif self.optimism_type == "UCB":
-                        optTerm = np.sqrt(2 * np.log10(self.totalSteps+2) / (self.QCounter+1)) # How do we do this +2 cleanly?
-                        self.QTableUnbiased[s1,action] = totQ
-                        self.QTable = self.QTableUnbiased + ( self.UCB_Cp * optTerm )
+                        self.QTable[s1,action] = totQ + max(0, (1-totQ) * ( (self.NmbrOptimiticTries - thisAlpha) / self.NmbrOptimiticTries))
+                    # elif self.optimism_type == "UCB":
+                    #     optTerm = np.sqrt(2 * np.log10(self.totalSteps+2) / (self.QCounter+1)) # How do we do this +2 cleanly?
+                    #     self.QTableUnbiased[s1,action] = totQ
+                    #     self.QTable = self.QTableUnbiased + ( self.UCB_Cp * optTerm )
                     elif self.optimism_type == "RMAX":
                         self.QTable[s1,action] = 1
     
