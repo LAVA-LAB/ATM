@@ -132,7 +132,7 @@ class BAM_QMDP:
             Loss = self.get_loss(b_next,next_action)
             TransSupport = self.get_support(s,action)
             
-            measure = (Loss > self.MeasureCost) or (TransSupport < self.NmbrOptimiticTries) or self.steps_taken > self.max_steps_without_measuring
+            measure = (Loss > self.MeasureCost) or (len(s) == 1 and TransSupport < self.NmbrOptimiticTries) or self.steps_taken > self.max_steps_without_measuring
             
             #4: Take Action:
             if np.random.rand() < self.eta:
@@ -323,12 +323,12 @@ Rewards Table: {}
             self.alpha_sum_weighted[s1, action] += p1
             
             # If done, we can update alphas regardless of whether we measured.
-            if isDone:
+            if len(S1) == 1 and isDone:
                 self.alpha[s1,action,self.doneState] += p1
                 self.alpha_sum[s1,action] += p1
             
             # Otherwise, update alpha normally when measuring
-            elif len(S2) == 1 and len(S1) == 1:
+            elif len(S1) == 1 and len(S2) == 1:
                 for s2 in S2:
                     self.alpha[s1,action,s2] += 1
                     self.alpha_sum[s1,action] += 1
@@ -383,19 +383,20 @@ Rewards Table: {}
                 # Implement bias
                 thisAlpha = self.NmbrOptimiticTries
                 if p1 == 1:
-                    thisAlpha = (self.alpha_sum[s1,action]) + p1
+                    thisAlpha = self.alpha_sum_weighted[s1,action] + p1
 
-                if thisAlpha >= self.NmbrOptimiticTries and self.optimism_type != "UCB":
-                    self.QTable[s1,action] = totQ
-                else:
-                    if self.optimism_type == "RMAX+":
-                        self.QTable[s1,action] = totQ + max(0, (1-totQ) * ( (self.NmbrOptimiticTries - thisAlpha) / self.NmbrOptimiticTries))
+                # if thisAlpha >= self.NmbrOptimiticTries and self.optimism_type != "UCB":
+                #     self.QTable[s1,action] = totQ
+                # else:
+                if self.optimism_type == "RMAX+":
+                    self.QTable[s1,action] = totQ + max(0, (1-totQ) * ( (self.NmbrOptimiticTries - thisAlpha) / self.NmbrOptimiticTries))
                     # elif self.optimism_type == "UCB":
                     #     optTerm = np.sqrt(2 * np.log10(self.totalSteps+2) / (self.QCounter+1)) # How do we do this +2 cleanly?
                     #     self.QTableUnbiased[s1,action] = totQ
                     #     self.QTable = self.QTableUnbiased + ( self.UCB_Cp * optTerm )
-                    elif self.optimism_type == "RMAX":
-                        self.QTable[s1,action] = 1
+                elif self.optimism_type == "RMAX":
+                    print("TODO")
+                    self.QTable[s1,action] = 1
     
     def train_offline(self):
         "Performs Dyna-style oflline training of Q-values using current transition function"
