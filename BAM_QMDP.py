@@ -33,7 +33,7 @@ class BAM_QMDP:
         # Meta-variables:
         self.eta = eta                              # Chance of picking a non-greedy action (should be called epsilon...)
         self.nmbr_particles = nmbr_particles        # Number of particles used to represent the belief state.
-        self.NmbrOptimiticTries = 20                # Meta variable determining for how many tries a transition should be biased.
+        self.NmbrOptimiticTries = 50                # Meta variable determining for how many tries a transition should be biased.
         self.selfLoopPenalty = 1                 # Penalty applied to Q-value for self loops (1 means no penalty)
         self.lossBoost = 1                          # Testing variable to boost the effect of Measurement Loss/Regret (1 means no boost)
         self.stopPenalty = 0.0                      # Penalty aplied to Q-values achieved in the last step (0 means no penalty)
@@ -75,6 +75,7 @@ class BAM_QMDP:
         
         self.alpha              = np.ones ( (self.StateSize, self.ActionSize, self.StateSize) ) * self.initPrior                 # Alpha-values used for dirichlet-distributions.
         self.alpha_sum          = np.ones ( (self.StateSize, self.ActionSize) ) * (self.initPrior * self.StateSize)
+        self.alpha_sum_weighted = np.ones ( (self.StateSize, self.ActionSize) ) * (self.initPrior * self.StateSize)
         self.ChangedStates      = {}
         self.T                  = np.zeros((self.StateSize, self.ActionSize, self.StateSize), dtype=np.longfloat) # States to be checked in global Q update
         # Other vars:
@@ -319,6 +320,7 @@ Rewards Table: {}
         
         for s1 in S1:
             p1 = S1[s1]
+            self.alpha_sum_weighted[s1, action] += p1
             
             # If done, we can update alphas regardless of whether we measured.
             if isDone:
@@ -326,18 +328,12 @@ Rewards Table: {}
                 self.alpha_sum[s1,action] += p1
             
             # Otherwise, update alpha normally when measuring
-            # elif len(S2) == 1 and len(S1) == 1:
-            for s2 in S2:
-                self.alpha[s1,action,s2] += p1*S2[s2]
-                self.alpha_sum[s1,action] += p1*S2[s2]
-            
-            # If not measuring
-            # else:
-            #     for s2 in S2:
-            #         self.alpha[s1,action,s2] += p1*S2[s2]*0.1
-            #         self.alpha_sum[s1,action] += p1*S2[s2]*0.1
-            #     pass
-                                     
+            elif len(S2) == 1 and len(S1) == 1:
+                for s2 in S2:
+                    self.alpha[s1,action,s2] += 1
+                    self.alpha_sum[s1,action] += 1
+
+
     def update_Q_lastStep_only(self,S1, S2, action, reward, isDone = False, isReal = True):
         'Updates Q-table according to transition (S1, a, S2)'
 
@@ -387,7 +383,7 @@ Rewards Table: {}
                 # Implement bias
                 thisAlpha = self.NmbrOptimiticTries
                 if p1 == 1:
-                    thisAlpha = np.sum(self.alpha[s1,action]) + p1
+                    thisAlpha = (self.alpha_sum[s1,action]) + p1
 
                 if thisAlpha >= self.NmbrOptimiticTries and self.optimism_type != "UCB":
                     self.QTable[s1,action] = totQ
